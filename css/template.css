@@ -8,14 +8,9 @@ html {
 	background-color: #FFB84D;
 }
 
-#stream_icon{
-	display: inline-block;
-	float:left;
-	width:25%;
-}
-
-#favorite_icon{
-	display: inline-block;
-	float:left;
-	width:25%;
+#track-container {
+	text-align: center;
+	font-size: 2.5em;
+	color: #F8320E;
+    font-family: Arial, Narrow, bold;
 }
