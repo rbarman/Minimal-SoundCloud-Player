@@ -13,14 +13,7 @@ function sayHello() {
 	console.log("i'm saying hello right now");
 }
 
-var track = {
-	id : "",
-	title : ""
-};
-
 var tracks = [];
-var currentIndex = 0;
-
 
 function getStream() {
 	console.log("getting my stream!");
@@ -44,62 +37,65 @@ function getFavoriteSongs() {
 
 	var page_size = 200;
 	SC.get('/me/favorites',{limit:page_size,linked_partitioning: 1},function(data){
-		console.log(data);
 		$(data.collection).each(function(i,track){
-			// the track object returned from favorites is slightly diff than stream tracks
+			// this returned track object is slightly diff than stream track object
 			tracks.push({id :track.id, title : track.title});
 		});
 		console.log("done");
 		spinner.stop();
 		$("#icon").attr("src","./resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
-		playSongs(currentIndex);
+		playSongs();
 	});
 }
-
+var currentIndex = 0;
 var paused = false;
-function playSongs(index) {
-	SC.stream("/tracks/" + tracks[index].id, 
+function playSongs() {
+	SC.stream("/tracks/" + tracks[currentIndex].id, 
+		
 		{	onfinish: 
 			function() {
-				console.log(tracks[index].title + ' finished');
-				playSongs(++currentIndex);
+				console.log(tracks[currentIndex].title + ' finished');
+				currentIndex++;
+				playSongs();
 			}
 		},
 
 		function(sound) {
 			sound.play();
-			console.log("playing " + tracks[index].title) + " w/ id : " + tracks[index].id;
+			console.log("playing " + tracks[currentIndex].title) + " w/ id : " + tracks[currentIndex].id;
 			document.onkeydown = function(e) {
 				switch (e.keyCode) {
 					case 32: // space
-					if(paused == true) {
-						console.log("resuming " + tracks[index].title);
-						sound.play();
-						paused = false; 
-					}
-					else {
-						console.log("pausing " + tracks[index].title);
-						sound.pause();
-						paused = true;
-					}
-					break;
+						if(paused == true) {
+							console.log("resuming " + tracks[currentIndex].title);
+							sound.play();
+							paused = false; 
+						}
+						else {
+							console.log("pausing " + tracks[currentIndex].title);
+							sound.pause();
+							paused = true;
+						}
+						break;
 			        case 37: // left
-			        console.log("will play previous song");
-			        sound.stop();
-			        playSongs(--currentIndex);
-			        break;
+			        	console.log("will play previous song");
+			        	sound.stop();
+			        	currentIndex--;
+			        	playSongs();
+			        	break;
 			        case 38: // up
-			        console.log("repost " + tracks[index].title);
-			        break;
+			        	console.log("repost " + tracks[currentIndex].title);
+			        	break;
 			        case 39: //right 
-			        console.log("will play next song");
-			        sound.stop();
-			        playSongs(++currentIndex);
-			        break;
+			        	console.log("will play next song");
+			        	sound.stop();
+			        	currentIndex++;
+			        	playSongs();
+			        	break;
 			        case 40: //down
-			        console.log("favorite " + tracks[index].title);
-			        break;
+			        	console.log("favorite " + tracks[currentIndex].title);
+			        	break;
 			    }
 			};
 		});
