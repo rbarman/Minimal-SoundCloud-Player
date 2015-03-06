@@ -16,6 +16,23 @@ function sayHello() {
 var tracks = [];
 var currentIndex = 0;
 
+
+function getStream() {
+	console.log("getting my stream!");
+	spinner.spin(document.getElementById("post-login-container")); 
+	var page_size = 200;
+	SC.get('/me/activities/tracks/affiliated',{limit:page_size,linked_partitioning:1},function(data){
+		$(data.collection).each(function(i,track){
+			tracks.push(track.origin.id);
+		});
+		console.log("done");
+		spinner.stop();
+		$("#icon").attr("src","./resources/orange_icon.png");
+		$('#icon').fadeIn(3000);
+		playSongs(currentIndex);
+	});
+}
+
 function getFavoriteSongs() {
 	console.log("getting favorite songs");
 	spinner.spin(document.getElementById("post-login-container")); 
@@ -23,7 +40,6 @@ function getFavoriteSongs() {
 	var page_size = 200;
 	SC.get('/me/favorites',{limit:page_size,linked_partitioning: 1},function(data){
 		$(data.collection).each(function(i,track){
-			console.log(track.title + " " + track.artwork_url);
 			tracks.push(track.id);
 		});
 		console.log("done");
@@ -80,6 +96,8 @@ function logIn() {
 		console.log("successfully connected");
 		$('#icon').fadeOut(1000);
 		$('#post-login-container').show();
-		getFavoriteSongs();
+		// getFavoriteSongs();
+		getStream();
+		// sayHello();
 	});
 }
