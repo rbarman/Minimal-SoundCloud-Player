@@ -51,6 +51,7 @@ function getFavoriteSongs() {
 	});
 }
 
+var paused = false;
 function playSongs(index) {
 	SC.stream("/tracks/" + tracks[index], 
 		{	onfinish: 
@@ -65,6 +66,18 @@ function playSongs(index) {
 			sound.play();
 			document.onkeydown = function(e) {
 				switch (e.keyCode) {
+					case 32: // space
+					if(paused == true) {
+						console.log("resume playing");
+						sound.play();
+						paused = false; 
+					}
+					else {
+						console.log("pausing");
+						sound.pause();
+						paused = true;
+					}
+					break;
 			        case 37: // left
 			        console.log("will play previous song");
 			        sound.stop();
@@ -78,7 +91,7 @@ function playSongs(index) {
 			        sound.stop();
 			        playSongs(++currentIndex);
 			        break;
-			        case 40: //diown
+			        case 40: //down
 			        console.log("favorite song");
 			        break;
 			    }
@@ -96,8 +109,8 @@ function logIn() {
 		console.log("successfully connected");
 		$('#icon').fadeOut(1000);
 		$('#post-login-container').show();
-		// getFavoriteSongs();
-		getStream();
+		getFavoriteSongs();
+		// getStream();
 		// sayHello();
 	});
 }

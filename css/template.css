@@ -1,18 +1,21 @@
 #icon {
-    display: block;
-    margin-left: auto;
-    margin-right: auto; 
+	display: block;
+	margin-left: auto;
+	margin-right: auto; 
 }
 
 html {
 	background-color: #FFB84D;
 }
-#pic {
-	position: fixed; 
-	top: 0; 
-	left: 0; 
-	
-	/* Preserve aspet ratio */
-	min-width: 100%;
-	min-height: 100%;
+
+#stream_icon{
+	display: inline-block;
+	float:left;
+	width:25%;
+}
+
+#favorite_icon{
+	display: inline-block;
+	float:left;
+	width:25%;
 }
