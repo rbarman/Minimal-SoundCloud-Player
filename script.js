@@ -66,6 +66,9 @@ function playSongs() {
 			sound.play();
 			console.log("playing " + tracks[currentIndex].title) + " w/ id : " + tracks[currentIndex].id;
 			$('#track-container').text(tracks[currentIndex].title);
+			$("#track-container").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+			if(currentIndex != 0)
+				$("#icon").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 			document.onkeydown = function(e) {
 				switch (e.keyCode) {
 					case 32: // space
