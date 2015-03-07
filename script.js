@@ -98,6 +98,21 @@ function playSongs() {
 			        case 40: //down
 			        	console.log("favorite " + tracks[currentIndex].title);
 			        	break;
+			        case 70: // f
+			        	console.log("going to get favorites");
+			        	tracks.length = 0;
+			        	currentIndex = 0;
+			        	sound.stop();
+			        	getFavoriteSongs();
+			        	break;
+			        case 83: // s
+			        	console.log("going to get stream");
+			        	tracks.length = 0;
+			        	currentIndex = 0;
+			        	sound.stop();
+			        	getStream();
+			        	break;
+
 			    }
 			};
 		});
@@ -113,8 +128,8 @@ function logIn() {
 		console.log("successfully connected");
 		$('#icon').fadeOut(1000);
 		$('#post-login-container').show();
-		getFavoriteSongs();
-		// getStream();
+		// getFavoriteSongs();
+		getStream();
 		// sayHello();
 	});
 }
