@@ -52,6 +52,10 @@ function getFavoriteSongs() {
 var currentIndex = 0;
 var paused = false;
 function playSongs() {
+
+	if(currentIndex < 0) // if user presses back on the first song
+		currentIndex = 0;
+
 	SC.stream("/tracks/" + tracks[currentIndex].id, 
 
 		{	onfinish: 
