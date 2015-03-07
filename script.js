@@ -95,6 +95,7 @@ function playSongs() {
 			        	break;
 			        case 38: // up
 			        	console.log("repost " + tracks[currentIndex].title);
+			        	repostCurrentSong();
 			        	break;
 			        case 39: //right 
 			        	console.log("will play next song");
@@ -104,6 +105,7 @@ function playSongs() {
 			        	break;
 			        case 40: //down
 			        	console.log("favorite " + tracks[currentIndex].title);
+			        	favoriteCurrentSong();
 			        	break;
 			        case 70: // f
 			        	console.log("going to get favorites");
@@ -124,6 +126,18 @@ function playSongs() {
 			};
 		});
 }	
+
+function favoriteCurrentSong(){
+	SC.put('/me/favorites/' + tracks[currentIndex].id, function(data){
+		// console.log(data);
+	});
+}
+
+function repostCurrentSong() {
+	SC.put('/e1/me/track_reposts/' + tracks[currentIndex].id, function(data){
+		// console.log(data);
+	});
+}
 
 function logIn() {
 	SC.initialize({
