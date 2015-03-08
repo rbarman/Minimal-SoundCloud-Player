@@ -18,7 +18,7 @@ var tracks = [];
 function getStream() {
 	console.log("getting my stream!");
 	spinner.spin(document.getElementById("post-login-container")); 
-	var page_size = 5;
+	var page_size = 200;
 	SC.get('/me/activities/tracks/affiliated',{limit:page_size,linked_partitioning:1},function(data){
 		$(data.collection).each(function(i,track){
 			tracks.push({id :track.origin.id, title : track.origin.title});
@@ -55,7 +55,7 @@ function playSongs() {
 
 	if(currentIndex < 0) // if user presses back on the first song
 		currentIndex = 0;
-
+	
 	SC.stream("/tracks/" + tracks[currentIndex].id, 
 
 		{	onfinish: 
