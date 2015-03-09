@@ -67,65 +67,83 @@ function playSongs() {
 		},
 
 		function(sound) {
-			sound.play();
-			console.log("playing " + tracks[currentIndex].title) + " w/ id : " + tracks[currentIndex].id;
-			$('#track-container').text(tracks[currentIndex].title);
-			$("#track-container").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-			if(currentIndex != 0)
-				$("#icon").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-			document.onkeydown = function(e) {
-				switch (e.keyCode) {
-					case 32: // space
-						if(paused == true) {
-							console.log("resuming " + tracks[currentIndex].title);
-							sound.play();
-							paused = false; 
-						}
-						else {
-							console.log("pausing " + tracks[currentIndex].title);
-							sound.pause();
-							paused = true;
-						}
-						break;
-			        case 37: // left
-			        	console.log("will play previous song");
-			        	sound.stop();
-			        	currentIndex--;
-			        	playSongs();
-			        	break;
-			        case 38: // up
-			        	console.log("repost " + tracks[currentIndex].title);
-			        	repostCurrentSong();
-			        	break;
-			        case 39: //right 
-			        	console.log("will play next song");
-			        	sound.stop();
-			        	currentIndex++;
-			        	playSongs();
-			        	break;
-			        case 40: //down
-			        	console.log("favorite " + tracks[currentIndex].title);
-			        	favoriteCurrentSong();
-			        	break;
-			        case 70: // f
-			        	console.log("going to get favorites");
-			        	tracks.length = 0;
-			        	currentIndex = 0;
-			        	sound.stop();
-			        	getFavoriteSongs();
-			        	break;
-			        case 83: // s
-			        	console.log("going to get stream");
-			        	tracks.length = 0;
-			        	currentIndex = 0;
-			        	sound.stop();
-			        	getStream();
-			        	break;
-
-			    }
-			};
+			playSongsCallback(sound)
 		});
 }	
+
+function playSongsCallback(sound){
+	sound.play();
+
+	console.log("playing " + tracks[currentIndex].title) + " w/ id : " + tracks[currentIndex].id;
+	$('#track-container').text(tracks[currentIndex].title);
+	$("#track-container").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+
+	if(currentIndex != 0)
+		$("#icon").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+	document.onkeydown = function(e) {
+		switch (e.keyCode) {
+				case 32: // space
+				// pause song if it is playing, unpause if it is paused
+					if(paused == true) {
+						console.log("resuming " + tracks[currentIndex].title);
+						sound.play();
+						paused = false; 
+					}
+					else {
+						console.log("pausing " + tracks[currentIndex].title);
+						sound.pause();
+						paused = true;
+					}
+					break;
+
+				case 37: // left
+					// play previous song
+			        console.log("will play previous song");
+			        sound.stop();
+			        currentIndex--;
+			        playSongs();
+			        break;
+
+			    case 38: // up
+			    	// repost current song
+			        console.log("repost " + tracks[currentIndex].title);
+			        repostCurrentSong();
+			        break;
+
+		        case 39: //right 
+		        	// play the next song
+			        console.log("will play next song");
+			        sound.stop();
+			        currentIndex++;
+			        playSongs();
+			        break;
+
+				case 40: //down
+					// favorite current song
+			        console.log("favorite " + tracks[currentIndex].title);
+			        favoriteCurrentSong();
+			        break;
+
+		        case 70: // f
+		        	// switch to playing favorites
+			        console.log("going to get favorites");
+			        tracks.length = 0;
+			        currentIndex = 0;
+			        sound.stop();
+			        getFavoriteSongs();
+			        break;
+
+		        case 83: // s
+		        	// switch to playing on stream. 
+			        console.log("going to get stream");
+			        tracks.length = 0;
+			        currentIndex = 0;
+			        sound.stop();
+			        getStream();
+			        break;
+			    }
+			};
+		}
 
 function favoriteCurrentSong(){
 	SC.put('/me/favorites/' + tracks[currentIndex].id, function(data){
