@@ -45,7 +45,6 @@ function getFavoriteSongs() {
 		console.log("done");
 		spinner.stop();
 		$("#icon").attr("src","./resources/orange_icon.png");
-		// $("#icon").attr("src","http://24.media.tumblr.com/tumblr_lq70q233Er1qjccmlo1_500.gif");
 		$('#icon').fadeIn(3000);
 		playSongs();
 	});
@@ -76,6 +75,7 @@ function playSongs() {
 var isSearching = false;
 
 function playSongsCallback(sound){
+	console.log(sound);
 	sound.play();
 
 	console.log("playing " + tracks[currentIndex].title) + " w/ id : " + tracks[currentIndex].id;
@@ -168,8 +168,8 @@ function playSongsCallback(sound){
 		        	playSongs();
 		        	break;
 
-				case 70: //f
-					// favorite current song
+				case 76: //l
+					// favorite/like current song
 					console.log("favorite " + tracks[currentIndex].title);
 					favoriteCurrentSong();
 					break;
