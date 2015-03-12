@@ -78,6 +78,8 @@ function playSongsCallback(sound){
 	$('#track-container').text(tracks[currentIndex].title);
 	$("#track-container").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 
+	document.title = tracks[currentIndex].title;
+
 	if(currentIndex != 0)
 		$("#icon").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 	document.onkeydown = function(e) {
