@@ -104,7 +104,7 @@ function playSongsCallback(sound){
 			        playSongs();
 			        break;
 
-			    case 38: // up
+			    case 82: // r
 			    	// repost current song
 			        console.log("repost " + tracks[currentIndex].title);
 			        repostCurrentSong();
@@ -118,7 +118,7 @@ function playSongsCallback(sound){
 			        playSongs();
 			        break;
 
-				case 40: //down
+				case 70: //f
 					// favorite current song
 			        console.log("favorite " + tracks[currentIndex].title);
 			        favoriteCurrentSong();
