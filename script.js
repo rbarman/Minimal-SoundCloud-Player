@@ -16,6 +16,7 @@ function sayHello() {
 var tracks = [];
 
 function getStream() {
+
 	console.log("getting my stream!");
 	spinner.spin(document.getElementById("post-login-container")); 
 	var page_size = 200;
@@ -195,29 +196,29 @@ function playSongsCallback(sound){
 		}
 	}
 
-	function favoriteCurrentSong(){
-		SC.put('/me/favorites/' + tracks[currentIndex].id, function(data){
+function favoriteCurrentSong(){
+	SC.put('/me/favorites/' + tracks[currentIndex].id, function(data){
 		// console.log(data);
 	});
-	}
+}
 
-	function repostCurrentSong() {
-		SC.put('/e1/me/track_reposts/' + tracks[currentIndex].id, function(data){
-		// console.log(data);
+function repostCurrentSong() {
+	SC.put('/e1/me/track_reposts/' + tracks[currentIndex].id, function(data){
+	// console.log(data);
 	});
-	}
+}
 
-	function logIn() {
-		SC.initialize({
-			client_id: 'b713150b1588a27489dda2c15e8f95c5',
-			redirect_uri: 'http://127.0.0.1/~rohan/SCPlaylistDownloader/callback.html'
-		});
+function logIn() {
+	SC.initialize({
+		client_id: 'b713150b1588a27489dda2c15e8f95c5',
+		redirect_uri: 'http://127.0.0.1/~rohan/SCPlaylistDownloader/callback.html'
+	});
 
-		SC.connect(function() {
-			console.log("successfully connected");
-			$('#icon').fadeOut(1000);
+	SC.connect(function() {
+		console.log("successfully connected");
+		$('#icon').fadeOut(1000);
+		$("#icon").unbind("click")
 		// getFavoriteSongs();
 		getStream();
-		// sayHello();
 	});
-	}
+}
