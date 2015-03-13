@@ -249,8 +249,8 @@ function repostCurrentSong() {
 
 function logIn() {
 	SC.initialize({
-		client_id: 'b713150b1588a27489dda2c15e8f95c5',
-		redirect_uri: 'http://127.0.0.1/~rohan/SCPlaylistDownloader/callback.html'
+		client_id: '63fe37845f76e74cf8bb7ecc89067ee1',
+		redirect_uri: 'http://127.0.0.1/~rohan/MinimalSoundCloud/callback.html'
 	});
 
 	SC.connect(function() {
