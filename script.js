@@ -27,9 +27,9 @@ function getStream() {
 		console.log("done");
 		spinner.stop();
 
-		$('#icon').trigger('startRumble');
 		$("#icon").attr("src","./resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
+
 		playSongs();
 	});
 }
@@ -93,7 +93,11 @@ var isSearching = false;
 function playSongsCallback(sound){
 	console.log(sound);
 	sound.play();
-
+	setTimeout(
+		function(){
+			$('#icon').trigger('startRumble');		
+		},3000);
+	
 	console.log("playing " + tracks[currentIndex].title) + " w/ id : " + tracks[currentIndex].id;
 	$('#track-container').text(tracks[currentIndex].title);
 	$("#track-container").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
@@ -137,6 +141,7 @@ function playSongsCallback(sound){
 						tracks.length = 0; 
 						currentIndex = 0;
 						sound.stop();
+						$('#icon').trigger('stopRumble');
 						searchForSongs(search_query);
 					}	
 				}
@@ -164,11 +169,14 @@ function playSongsCallback(sound){
 				if(paused == true) {
 					console.log("resuming " + tracks[currentIndex].title);
 					sound.play();
+					$('#icon').trigger('startRumble');
+
 					paused = false; 
 				}
 				else {
 					console.log("pausing " + tracks[currentIndex].title);
 					sound.pause();
+					$('#icon').trigger('stopRumble');
 					paused = true;
 				}
 				break;
@@ -178,6 +186,7 @@ function playSongsCallback(sound){
 					console.log("will play previous song");
 					sound.stop();
 					currentIndex--;
+					$('#icon').trigger('stopRumble');		
 					playSongs();
 					break;
 
@@ -192,6 +201,7 @@ function playSongsCallback(sound){
 		        	console.log("will play next song");
 		        	sound.stop();
 		        	currentIndex++;
+		        	$('#icon').trigger('stopRumble');
 		        	playSongs();
 		        	break;
 
@@ -203,6 +213,7 @@ function playSongsCallback(sound){
 
 		        case 70: // f
 		        	// switch to playing favorites
+		        	$('#icon').trigger('stopRumble');
 		        	console.log("going to get favorites");
 		        	tracks.length = 0;
 		        	currentIndex = 0;
@@ -212,6 +223,7 @@ function playSongsCallback(sound){
 
 		        case 83: // s
 		        	// switch to playing on stream. 
+		        	$('#icon').trigger('stopRumble');
 		        	console.log("going to get stream");
 		        	tracks.length = 0;
 		        	currentIndex = 0;
