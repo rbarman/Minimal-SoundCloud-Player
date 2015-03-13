@@ -33,7 +33,7 @@ function getStream() {
 }
 
 function searchForSongs(search_query){
-	console.log("in searchForSongs");
+	console.log("will search for " + search_query);
 	spinner.spin(document.getElementById("post-login-container")); 
 
 	SC.get('/tracks', { q: search_query, limit:page_size}, function(data) {
@@ -119,7 +119,6 @@ function playSongsCallback(sound){
 				else if(isSearching){
 					console.log("pressed enter - will close search_box");
 					var search_query = $('#search_box').val();
-					console.log("will search for : " + search_query);
 
 					$('#search_box').fadeOut(function(){
 						$(this).replaceWith('<div id = "track-container"> </div>');
@@ -127,10 +126,17 @@ function playSongsCallback(sound){
 					})
 					
 					isSearching = false;
-					tracks.length = 0; 
-					currentIndex = 0;
-					sound.stop();
-					searchForSongs(search_query);
+
+					// nothing in search_box, so will not searchForSongs();
+					if(!search_query || 0 === search_query.length){
+						console.log("nothing in search_box");
+					}
+					else{
+						tracks.length = 0; 
+						currentIndex = 0;
+						sound.stop();
+						searchForSongs(search_query);
+					}	
 				}
 				break;
 
