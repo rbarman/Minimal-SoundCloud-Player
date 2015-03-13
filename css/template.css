@@ -18,6 +18,10 @@
 	color: #F8320E;
 }
 
+#search_box:focus{
+    outline: none;
+}
+
 html {
 	background-color: #FFB84D;
 }
