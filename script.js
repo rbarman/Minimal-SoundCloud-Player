@@ -9,17 +9,17 @@ var	spinner = new Spinner({
 	shadow: true // Whether to render a shadow
 });
 
+var page_size = 200;
+var tracks = [];
+
 function sayHello() {
 	console.log("i'm saying hello right now");
 }
 
-var tracks = [];
-
 function getStream() {
-
 	console.log("getting my stream!");
 	spinner.spin(document.getElementById("post-login-container")); 
-	var page_size = 200;
+
 	SC.get('/me/activities/tracks/affiliated',{limit:page_size,linked_partitioning:1},function(data){
 		$(data.collection).each(function(i,track){
 			tracks.push({id :track.origin.id, title : track.origin.title});
@@ -28,7 +28,22 @@ function getStream() {
 		spinner.stop();
 		$("#icon").attr("src","./resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
-		playSongs(currentIndex);
+		playSongs();
+	});
+}
+
+function searchForSongs(search_query){
+	console.log("in searchForSongs");
+	spinner.spin(document.getElementById("post-login-container")); 
+
+	SC.get('/tracks', { q: search_query, limit:page_size}, function(data) {
+  		$(data).each(function(i, track) {
+  			tracks.push({id :track.id, title : track.title});
+  		});
+		spinner.stop();
+		$("#icon").attr("src","./resources/orange_icon.png");
+		$('#icon').fadeIn(3000);
+		playSongs();
 	});
 }
 
@@ -36,7 +51,6 @@ function getFavoriteSongs() {
 	console.log("getting favorite songs");
 	spinner.spin(document.getElementById("post-login-container")); 
 
-	var page_size = 200;
 	SC.get('/me/favorites',{limit:page_size,linked_partitioning: 1},function(data){
 		$(data.collection).each(function(i,track){
 			// this returned track object is slightly diff than stream track object
@@ -104,14 +118,19 @@ function playSongsCallback(sound){
 				}
 				else if(isSearching){
 					console.log("pressed enter - will close search_box");
-					var search_entry = $('#search_box').val();
-					console.log("will search for : " + search_entry);
+					var search_query = $('#search_box').val();
+					console.log("will search for : " + search_query);
 
 					$('#search_box').fadeOut(function(){
 						$(this).replaceWith('<div id = "track-container"> </div>');
 						$('#track-container').text(tracks[currentIndex].title);
-						isSearching = false;
 					})
+					
+					isSearching = false;
+					tracks.length = 0; 
+					currentIndex = 0;
+					sound.stop();
+					searchForSongs(search_query);
 				}
 				break;
 
@@ -129,7 +148,7 @@ function playSongsCallback(sound){
 	}
 
 	document.onkeydown = function(e) {
-
+		console.log("isSearching : " + isSearching);
 		if(!isSearching){
 			switch (e.keyCode) {
 				case 32: // space
