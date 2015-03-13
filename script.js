@@ -26,6 +26,8 @@ function getStream() {
 		});
 		console.log("done");
 		spinner.stop();
+
+		$('#icon').trigger('startRumble');
 		$("#icon").attr("src","./resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
 		playSongs();
@@ -242,7 +244,12 @@ function logIn() {
 	SC.connect(function() {
 		console.log("successfully connected");
 		$('#icon').fadeOut(1000);
-		$("#icon").unbind("click")
+		$("#icon").unbind("click");
+		$('#icon').jrumble({
+			x: 2,
+			y: 2,
+			rotation: 1
+		});
 		// getFavoriteSongs();
 		getStream();
 	});
