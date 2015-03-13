@@ -8,10 +8,12 @@ User Interactions :
 
     Previous track : left arrow
     Next track : right arrow
-    Like current track : down arrow
-    Repost current track : up arrow
+    Like current track : l
+    Repost current track : r
     Listen to Favorite tracks : f
     Listen to Stream tracks : s
+    Search for a song : <enter>
+    Exit search : <esc>
     
 Used : 
 
