@@ -27,7 +27,7 @@ function getStream() {
 		console.log("done");
 		spinner.stop();
 
-		$("#icon").attr("src","./resources/orange_icon.png");
+		$("#icon").attr("src","resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
 
 		playSongs();
@@ -43,7 +43,7 @@ function searchForSongs(search_query){
   			tracks.push({id :track.id, title : track.title});
   		});
 		spinner.stop();
-		$("#icon").attr("src","./resources/orange_icon.png");
+		$("#icon").attr("src","resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
 		playSongs();
 	});
@@ -60,7 +60,7 @@ function getFavoriteSongs() {
 		});
 		console.log("done");
 		spinner.stop();
-		$("#icon").attr("src","./resources/orange_icon.png");
+		$("#icon").attr("src","resources/orange_icon.png");
 		$('#icon').fadeIn(3000);
 		playSongs();
 	});
