@@ -1,6 +1,6 @@
 Minimalist SoundCloud player web application. 
 
-Currently Hosted on via Heroku @ https://minimal-soundcloud.herokuapp.com
+Currently hosted via Heroku @ https://minimal-soundcloud.herokuapp.com
 
 Users can listen to tracks from his favorites or stream. 
 Users can upvote and repost songs while he listens. 
