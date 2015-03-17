@@ -249,7 +249,7 @@ function repostCurrentSong() {
 
 function logIn() {
 	SC.initialize({
-		client_id: '63fe37845f76e74cf8bb7ecc89067ee1',
+		client_id: '755f32dd67780dda235270868bb0ae6d',
 		redirect_uri: 'http://minimal-soundcloud.herokuapp.com/callback.html'
 	});
 
