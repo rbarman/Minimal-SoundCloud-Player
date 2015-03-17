@@ -250,7 +250,7 @@ function repostCurrentSong() {
 function logIn() {
 	SC.initialize({
 		client_id: '63fe37845f76e74cf8bb7ecc89067ee1',
-		redirect_uri: 'http://127.0.0.1/~rohan/MinimalSoundCloud/callback.html'
+		redirect_uri: 'callback.html'
 	});
 
 	SC.connect(function() {
