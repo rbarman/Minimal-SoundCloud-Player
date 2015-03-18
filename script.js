@@ -249,8 +249,8 @@ function repostCurrentSong() {
 
 function logIn() {
 	SC.initialize({
-		client_id: '63fe37845f76e74cf8bb7ecc89067ee1',
-		redirect_uri: 'http://127.0.0.1/~rohan/MinimalSoundCloud/callback.html'
+		client_id: '755f32dd67780dda235270868bb0ae6d',
+		redirect_uri: 'https://smooth-clouds.herokuapp.com/callback.html'
 	});
 
 	SC.connect(function() {
